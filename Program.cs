@@ -3,27 +3,38 @@ using Microsoft.AspNetCore.Mvc;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
-app.MapPost("/saveusuario", (Usuario usuario) =>
+app.MapPost("/usuarios", (Usuario usuario) =>
 {
     UsuarioRepository.Add(usuario);
+    return Results.Created($"/usuarios/{usuario.Cpf}", usuario.Cpf);
 });
 
-app.MapGet("/getusuario/{cpf}", ([FromRoute] string cpf) =>
+app.MapGet("/usuarios/{cpf}", ([FromRoute] string cpf) =>
 {
     var usuario = UsuarioRepository.GetBy(cpf);
-    return usuario;
+    if (usuario != null)
+    {
+        return Results.Ok(usuario);
+    }
+    else
+    {
+        return Results.NotFound();
+    }
+
 });
 
-app.MapPut("/editusuario", (Usuario usuario) =>
+app.MapPut("/usuarios", (Usuario usuario) =>
 {
     var usuarioSaved = UsuarioRepository.GetBy(usuario.Cpf);
     usuarioSaved.Name = usuario.Name;
+    return Results.Ok();
 });
 
-app.MapDelete("deleteusuario/{cpf}", ([FromRoute] string cpf) =>
+app.MapDelete("usuarios/{cpf}", ([FromRoute] string cpf) =>
 {
     var usuarioSaved = UsuarioRepository.GetBy(cpf);
     UsuarioRepository.Remove(usuarioSaved);
+    return Results.Ok();
 });
 
 app.Run();

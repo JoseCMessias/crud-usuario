@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "huNgKkJTP9opP8AcmfsHi+dogHybCTuTTCeH9P6YMgYiYrnLGb12E95DBIMTUiPxetERwxuNfRn8FZ8t9r12LQ==",
+  "dgSpecHash": "n+DUcKR6pC1jlGCTD3vD4GMIEKXUZeaznVTyb+RVmfaOiEx9tXIt80YURXbGBKzs7ZcGvTms0uejlsM57nb9dw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\IATR\\OneDrive\\Área de Trabalho\\PASTA DE PROJETOS\\CRUD simples\\CRUD simples.csproj",
+  "projectFilePath": "C:\\Users\\IATR\\OneDrive\\Área de Trabalho\\PASTA DE PROJETOS\\crud-usuario\\CRUD simples.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
