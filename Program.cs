@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
+var configuration = app.Configuration;
+UsuarioRepository.Init(configuration);
 
 app.MapPost("/usuarios", (Usuario usuario) =>
 {
@@ -37,18 +39,26 @@ app.MapDelete("usuarios/{cpf}", ([FromRoute] string cpf) =>
     return Results.Ok();
 });
 
+//Retorna a string de conexão
+app.MapGet("/configuration/database", (IConfiguration configuration) =>
+{
+    return Results.Ok($"{configuration["database:connection"]}/{configuration["database:Port"]}");
+});
+
 app.Run();
 
 public static class UsuarioRepository
 {
-    public static List<Usuario> Usuarios { get; set; }
+    public static List<Usuario> Usuarios { get; set; } = Usuarios = new List<Usuario>();
+
+    public static void Init(IConfiguration configuration)
+    {
+        var usuarios = configuration.GetSection("Usuarios").Get<List<Usuario>>();
+        Usuarios = Usuarios;
+    }
 
     public static void Add(Usuario usuarios)
     {
-        if (Usuarios == null)
-        {
-            Usuarios = new List<Usuario>();
-        }
         Usuarios.Add(usuarios);
     }
 
